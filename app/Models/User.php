@@ -64,7 +64,8 @@ class User extends Authenticatable implements FilamentUser, HasMedia
     protected static function booted(): void
     {
         static::creating(function (User $user) {
-            $user->password ??= $user->date_of_birth->format('dmy');
+            $user->password ??= $user->date_of_birth?->format('dmy');
+            $user->registered_at ??= now();
         });
     }
 
